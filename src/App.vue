@@ -33,9 +33,6 @@ body, html {
 
 #app {
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 textarea {
@@ -45,8 +42,8 @@ textarea {
   outline: none;
   resize: none;
   padding: 20px;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-family: "Montserrat", serif;
   background-color: #f4f2ee;
   color: #333;
   box-sizing: border-box;
