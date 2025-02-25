@@ -27,7 +27,7 @@ export default {
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 99%; /*In order to eliminate the browser scroll bar */
   background-color: #f4f2ee;
 }
 
@@ -47,5 +47,17 @@ textarea {
   background-color: #f4f2ee;
   color: #333;
   box-sizing: border-box;
+}
+
+/* Custom scrollbar */
+textarea::-webkit-scrollbar {
+  width: 15px;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 20px;
+}
+textarea::-webkit-scrollbar-track {
+  background-color: #f4f2ee;
 }
 </style>
