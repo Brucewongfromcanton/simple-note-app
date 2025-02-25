@@ -24,10 +24,13 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 body, html {
   margin: 0;
   padding: 0;
-  height: 99%; /*In order to eliminate the browser scroll bar */
+  height: 100%; 
+  overflow:hidden; /*In order to eliminate the browser scroll bar */
   background-color: #f4f2ee;
 }
 
