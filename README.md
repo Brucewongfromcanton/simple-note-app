@@ -1,5 +1,5 @@
 # simple-note-app
-Simple text editor
+Simple text editor - [Website](https://brucewongfromcanton.github.io/simple-note-app/)
 
 ## Supports **Bold** and *Italic*
 
