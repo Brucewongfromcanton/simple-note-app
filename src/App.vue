@@ -10,6 +10,9 @@
       >
         {{ saveEnabled ? 'ON' : 'OFF' }}
       </button>
+
+      <!-- Print Button -->
+      <button class="print-button" @click="printContent">Print</button>
     </div>
 
     <!-- Editor -->
@@ -74,6 +77,42 @@ export default {
         // Save current content to localStorage when saving is enabled
         localStorage.setItem('noteContent', this.noteContent);
       }
+    },
+    printContent() {
+      const editorContent = this.$refs.editor.innerHTML;
+
+      // Create a new window for printing
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Note</title>
+            <style>
+              body {
+                font-family: "Montserrat", serif;
+                font-size: 20px;
+                line-height: 1.5;
+                color: #333;
+                padding: 20px;
+              }
+              h1, h2, h3, h4, h5, h6 {
+                font-weight: bold;
+              }
+              strong {
+                font-weight: bold;
+              }
+              em {
+                font-style: italic;
+              }
+            </style>
+          </head>
+          <body>
+            ${editorContent}
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.print();
     }
   }
 };
@@ -126,6 +165,22 @@ body, html {
 .toggle-button.active {
   background-color: #4caf50; /* Green when ON */
   color: #fff;
+}
+
+.print-button {
+  padding: 5px 15px;
+  font-family: "Montserrat", serif;
+  font-size: 14px;
+  color: #333;
+  background-color: #f4f2ee;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.print-button:hover {
+  background-color: #ddd;
 }
 
 .editor {
