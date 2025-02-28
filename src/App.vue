@@ -1,5 +1,18 @@
 <template>
   <div id="app">
+    <!-- Toggle Button -->
+    <div class="toggle-container">
+      <label class="toggle-label">Local Save:</label>
+      <button
+        class="toggle-button"
+        :class="{ active: saveEnabled }"
+        @click="toggleSave"
+      >
+        {{ saveEnabled ? 'ON' : 'OFF' }}
+      </button>
+    </div>
+
+    <!-- Editor -->
     <div
       ref="editor"
       contenteditable="true"
@@ -16,7 +29,8 @@ export default {
   data() {
     return {
       noteContent: localStorage.getItem('noteContent') || '',
-      placeholderText: 'Start typing your notes here...'
+      placeholderText: 'Start typing your notes here...',
+      saveEnabled: true // Default to saving enabled
     };
   },
   mounted() {
@@ -26,7 +40,9 @@ export default {
   methods: {
     handleInput() {
       this.noteContent = this.$refs.editor.innerHTML;
-      localStorage.setItem('noteContent', this.noteContent);
+      if (this.saveEnabled) {
+        localStorage.setItem('noteContent', this.noteContent);
+      }
       this.updatePlaceholder();
     },
     updatePlaceholder() {
@@ -48,6 +64,16 @@ export default {
         event.preventDefault();
         document.execCommand('italic', false, null);
       }
+    },
+    toggleSave() {
+      this.saveEnabled = !this.saveEnabled;
+      if (!this.saveEnabled) {
+        // Clear localStorage when saving is disabled
+        localStorage.removeItem('noteContent');
+      } else {
+        // Save current content to localStorage when saving is enabled
+        localStorage.setItem('noteContent', this.noteContent);
+      }
     }
   }
 };
@@ -66,11 +92,45 @@ body, html {
 
 #app {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-container {
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-label {
+  font-family: "Montserrat", serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.toggle-button {
+  padding: 5px 15px;
+  font-family: "Montserrat", serif;
+  font-size: 14px;
+  color: #333;
+  background-color: #f4f2ee;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button.active {
+  background-color: #4caf50; /* Green when ON */
+  color: #fff;
 }
 
 .editor {
   width: 100%;
-  height: 100%;
+  flex-grow: 1;
   border: none;
   outline: none;
   padding: 20px;
